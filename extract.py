@@ -12,8 +12,8 @@ def extract(filename):
     vp = Viewport(2, 1, 12, 4)
 
     headers = []
-    for j in range(vp.left, vp.right + 1):
-        value = sheet.cell_value(vp.top, j)
+    for i, j in vp.rows[0]:
+        value = sheet.cell_value(i, j)
         headers.append(value)
 
     data = []
