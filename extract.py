@@ -5,24 +5,31 @@ import xlrd
 from viewport import Viewport
 
 
-def extract(filename):
-    book = xlrd.open_workbook(filename, formatting_info=True)
-    sheet = book.sheet_by_index(0)
+class Spreadsheet:
+    def __init__(self, filename):
+        book = xlrd.open_workbook(filename, formatting_info=True)
+        sheet = book.sheet_by_index(0)
 
-    vp = Viewport(2, 1, 12, 4)
+        self.sheet = sheet
+        self.vp = Viewport(2, 1, 12, 4)
 
-    headers = [sheet.cell_value(i, j) for i, j in vp.rows[0]]
+    @property
+    def headers(self):
+        return [self.sheet.cell_value(i, j) for i, j in self.vp.rows[0]]
 
-    data = [[sheet.cell_value(i, j) for i, j in indexes]
-            for indexes in vp.rows[1:]]
+    @property
+    def data(self):
+        return [[self.sheet.cell_value(i, j) for i, j in indexes]
+                for indexes in self.vp.rows[1:]]
 
-    return headers, data
+    def __iter__(self):
+        return chain([self.headers], self.data)
 
 
 if __name__ == '__main__':
     filename = sys.argv[1]
 
-    headers, data = extract(filename)
+    sheet = Spreadsheet(filename)
 
-    for row in chain([headers], data):
+    for row in sheet:
         print('{3: >6} {2}'.format(*row))
