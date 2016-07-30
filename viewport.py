@@ -38,17 +38,7 @@ class RowIterator:
 
     def __getitem__(self, item):
         if isinstance(item, slice):
-            offset = self.vp.top
-            length = self.vp.bottom + 1 - self.vp.top
-            start, stop, step = item.indices(length)
-
-            slice_ = slice(start + offset, stop + offset, step)
-
-            col_indexes = range(self.vp.left, self.vp.right + 1)
-            row_indexes = range(slice_.start, slice_.stop, slice_.step)
-
-            return tuple((tuple((i, j) for j in col_indexes)
-                          for i in row_indexes))
+            return self._slice(item)
         else:
             return self._index(item)
 
@@ -57,6 +47,19 @@ class RowIterator:
         row_index = self.vp.top + item
 
         return tuple(tuple((row_index, j) for j in col_indexes))
+
+    def _slice(self, item):
+        offset = self.vp.top
+        length = self.vp.bottom + 1 - self.vp.top
+        start, stop, step = item.indices(length)
+
+        slice_ = slice(start + offset, stop + offset, step)
+
+        col_indexes = range(self.vp.left, self.vp.right + 1)
+        row_indexes = range(slice_.start, slice_.stop, slice_.step)
+
+        return tuple((tuple((i, j) for j in col_indexes)
+                      for i in row_indexes))
 
 
 if __name__ == '__main__':
