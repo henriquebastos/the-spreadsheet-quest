@@ -2,26 +2,24 @@ import sys
 from itertools import chain
 
 import xlrd
+from viewport import Viewport
 
 
 def extract(filename):
     book = xlrd.open_workbook(filename, formatting_info=True)
     sheet = book.sheet_by_index(0)
 
-    FIRST_ROW = 2
-    FIRST_COL = 1
-    LAST_ROW = 12
-    LAST_COL = 4
+    vp = Viewport(2, 1, 12, 4)
 
     headers = []
-    for j in range(FIRST_COL, LAST_COL + 1):
-        value = sheet.cell_value(FIRST_ROW, j)
+    for j in range(vp.left, vp.right + 1):
+        value = sheet.cell_value(vp.top, j)
         headers.append(value)
 
     data = []
-    for i in range(FIRST_ROW + 1, LAST_ROW + 1):
+    for i in range(vp.top + 1, vp.bottom + 1):
         row = []
-        for j in range(FIRST_COL, LAST_COL + 1):
+        for j in range(vp.left, vp.right + 1):
             value = sheet.cell_value(i, j)
             row.append(value)
 
