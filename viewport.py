@@ -24,6 +24,19 @@ class Viewport(object):
                 self.bottom == other.bottom and
                 self.right == other.right)
 
+    @property
+    def rows(self):
+        rows_ = []
+
+        for i in range(self.top, self.bottom + 1):
+            row = []
+            for j in range(self.left, self.right + 1):
+                row.append((i, j))
+
+            rows_.append(tuple(row))
+
+        return tuple(rows_)
+
 
 if __name__ == '__main__':
     assert Viewport(2, 1, 12, 4)
@@ -35,3 +48,6 @@ if __name__ == '__main__':
     assert str(v) == '((2, 1), (12, 4))'
 
     assert Viewport(2, 1, 12, 4) == Viewport(2, 1, 12, 4)
+
+    assert Viewport(0, 0, 1, 1).rows == (((0, 0), (0, 1)), ((1, 0), (1, 1)))
+    assert Viewport(0, 0, 1, 1).rows[0] == ((0, 0), (0, 1))
