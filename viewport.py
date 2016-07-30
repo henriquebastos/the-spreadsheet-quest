@@ -26,10 +26,7 @@ class Viewport(object):
 
     @property
     def rows(self):
-        col_indexes = range(self.left, self.right + 1)
-        row_indexes = range(self.top, self.bottom + 1)
-
-        return tuple(tuple((i, j) for j in col_indexes) for i in row_indexes)
+        return RowIterator(self)
 
 
 class RowIterator:
@@ -75,7 +72,7 @@ if __name__ == '__main__':
 
     assert Viewport(2, 1, 12, 4) == Viewport(2, 1, 12, 4)
 
-    assert Viewport(0, 0, 1, 1).rows == (((0, 0), (0, 1)), ((1, 0), (1, 1)))
+    assert Viewport(0, 0, 1, 1).rows[:] == (((0, 0), (0, 1)), ((1, 0), (1, 1)))
     assert Viewport(0, 0, 1, 1).rows[0] == ((0, 0), (0, 1))
 
     v = Viewport(0, 0, 3, 1)
