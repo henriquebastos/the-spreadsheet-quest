@@ -8,10 +8,13 @@ def extract(filename):
     book = xlrd.open_workbook(filename, formatting_info=True)
     sheet = book.sheet_by_index(0)
 
+    FIRST_ROW = 2
+    FIRST_COL = 1
+
     headers = []
     j = 0
     while True:
-        value = sheet.cell_value(2, 1 + j)
+        value = sheet.cell_value(FIRST_ROW, FIRST_COL + j)
 
         if not value:
             break
@@ -25,7 +28,7 @@ def extract(filename):
         row = []
         j = 0
         while True:
-            value = sheet.cell_value(3 + i, 1 + j)
+            value = sheet.cell_value(FIRST_ROW + 1 + i, FIRST_COL + j)
 
             if not value:
                 break
