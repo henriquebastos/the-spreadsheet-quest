@@ -10,17 +10,13 @@ def extract(filename):
 
     FIRST_ROW = 2
     FIRST_COL = 1
+    LAST_ROW = 12
+    LAST_COL = 4
 
     headers = []
-    j = 0
-    while True:
-        value = sheet.cell_value(FIRST_ROW, FIRST_COL + j)
-
-        if not value:
-            break
-
+    for j in range(FIRST_COL, LAST_COL + 1):
+        value = sheet.cell_value(FIRST_ROW, j)
         headers.append(value)
-        j += 1
 
     data = []
     i = 0
