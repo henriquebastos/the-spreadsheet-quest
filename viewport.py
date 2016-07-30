@@ -50,11 +50,13 @@ class RowIterator:
             return tuple((tuple((i, j) for j in col_indexes)
                           for i in row_indexes))
         else:
-            col_indexes = range(self.vp.left, self.vp.right + 1)
-            row_index = self.vp.top + item
+            return self._index(item)
 
-            return tuple(tuple((row_index, j) for j in col_indexes))
+    def _index(self, item):
+        col_indexes = range(self.vp.left, self.vp.right + 1)
+        row_index = self.vp.top + item
 
+        return tuple(tuple((row_index, j) for j in col_indexes))
 
 
 if __name__ == '__main__':
