@@ -37,10 +37,23 @@ class RowIterator:
         self.vp = viewport
 
     def __getitem__(self, item):
-        col_indexes = range(self.vp.left, self.vp.right + 1)
-        row_index = self.vp.top + item
+        if isinstance(item, slice):
+            offset = self.vp.top
+            length = self.vp.bottom + 1 - self.vp.top
+            start, stop, step = item.indices(length)
 
-        return tuple(tuple((row_index, j) for j in col_indexes))
+            slice_ = slice(start + offset, stop + offset, step)
+
+            col_indexes = range(self.vp.left, self.vp.right + 1)
+            row_indexes = range(slice_.start, slice_.stop, slice_.step)
+
+            return tuple((tuple((i, j) for j in col_indexes)
+                          for i in row_indexes))
+        else:
+            col_indexes = range(self.vp.left, self.vp.right + 1)
+            row_index = self.vp.top + item
+
+            return tuple(tuple((row_index, j) for j in col_indexes))
 
 
 
@@ -60,3 +73,4 @@ if __name__ == '__main__':
 
     v = Viewport(0, 0, 3, 1)
     assert RowIterator(v)[1] == ((1, 0), (1, 1))
+    assert RowIterator(v)[1:-1] == (((1, 0), (1, 1)), ((2, 0), (2, 1)))
