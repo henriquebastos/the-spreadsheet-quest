@@ -1,0 +1,11 @@
+   BRL COMPRA
+  9.01 Amazon Beer Witbier Tapereba
+  9.02 Brooklyn Lager
+  9.03 DaDo Bier Lager
+  9.04 Erdinger Champ
+  9.05 Hoegaarden
+  9.06 Kirin Ichiban
+  9.07 Leffe Blonde
+  9.08 Paulistania
+  9.09 Rasen Bier Pilsen
+   9.1 Therezopolis
