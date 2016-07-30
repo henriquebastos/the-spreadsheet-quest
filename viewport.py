@@ -7,9 +7,17 @@ class Viewport(object):
         self.bottom = bottom
         self.right = right
 
+    def __repr__(self):
+        return '{}({}, {}, {}, {})'.format(
+            self.__class__.__name__,
+            self.top, self.left, self.bottom, self.right
+        )
+
 
 if __name__ == '__main__':
     assert Viewport(2, 1, 12, 4)
 
     v = Viewport(2, 1, 12, 4)
     assert v.top == 2 and v.left == 1 and v.bottom == 12 and v.right == 4
+
+    assert repr(v) == 'Viewport(2, 1, 12, 4)'
