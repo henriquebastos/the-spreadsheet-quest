@@ -17,9 +17,9 @@ def extract(filename):
         headers.append(value)
 
     data = []
-    for i in range(vp.top + 1, vp.bottom + 1):
+    for indexes in vp.rows[1:]:
         row = []
-        for j in range(vp.left, vp.right + 1):
+        for i, j in indexes:
             value = sheet.cell_value(i, j)
             row.append(value)
 
