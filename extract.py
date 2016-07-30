@@ -8,5 +8,4 @@ if __name__ == '__main__':
 
     stm = CardStatement.from_xls(filename)
 
-    for row in stm:
-        print('{3: >6} {2}'.format(*row))
+    print(str(stm))
