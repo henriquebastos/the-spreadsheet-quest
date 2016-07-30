@@ -1,16 +1,19 @@
 from itertools import chain
 
 import xlrd
-from viewport import Viewport
 
 
 class Spreadsheet:
-    def __init__(self, filename, viewport):
+    def __init__(self, sheet, viewport):
+        self.sheet = sheet
+        self.vp = viewport
+
+    @classmethod
+    def from_xls(cls, filename, viewport):
         book = xlrd.open_workbook(filename, formatting_info=True)
         sheet = book.sheet_by_index(0)
 
-        self.sheet = sheet
-        self.vp = viewport
+        return cls(sheet, viewport)
 
     @property
     def headers(self):
