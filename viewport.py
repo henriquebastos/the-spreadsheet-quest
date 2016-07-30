@@ -32,6 +32,18 @@ class Viewport(object):
         return tuple(tuple((i, j) for j in col_indexes) for i in row_indexes)
 
 
+class RowIterator:
+    def __init__(self, viewport):
+        self.vp = viewport
+
+    def __getitem__(self, item):
+        col_indexes = range(self.vp.left, self.vp.right + 1)
+        row_index = self.vp.top + item
+
+        return tuple(tuple((row_index, j) for j in col_indexes))
+
+
+
 if __name__ == '__main__':
     assert Viewport(2, 1, 12, 4)
 
@@ -45,3 +57,6 @@ if __name__ == '__main__':
 
     assert Viewport(0, 0, 1, 1).rows == (((0, 0), (0, 1)), ((1, 0), (1, 1)))
     assert Viewport(0, 0, 1, 1).rows[0] == ((0, 0), (0, 1))
+
+    v = Viewport(0, 0, 3, 1)
+    assert RowIterator(v)[1] == ((1, 0), (1, 1))
