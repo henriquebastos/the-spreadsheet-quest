@@ -11,10 +11,6 @@ def extract(filename):
 
     vp = Viewport(2, 1, 12, 4)
 
-    headers = []
-    for i, j in vp.rows[0]:
-        value = sheet.cell_value(i, j)
-        headers.append(value)
 
     data = []
     for indexes in vp.rows[1:]:
@@ -24,6 +20,7 @@ def extract(filename):
             row.append(value)
 
         data.append(row)
+    headers = [sheet.cell_value(i, j) for i, j in vp.rows[0]]
 
     return headers, data
 
