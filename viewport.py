@@ -36,6 +36,9 @@ class RowIterator:
     def __init__(self, viewport):
         self.vp = viewport
 
+    def __len__(self):
+        return self.vp.bottom + 1 - self.vp.top
+
     def __getitem__(self, item):
         if isinstance(item, slice):
             return self._slice(item)
@@ -50,8 +53,7 @@ class RowIterator:
 
     def _slice(self, item):
         offset = self.vp.top
-        length = self.vp.bottom + 1 - self.vp.top
-        start, stop, step = item.indices(length)
+        start, stop, step = item.indices(len(self))
 
         slice_ = slice(start + offset, stop + offset, step)
 
