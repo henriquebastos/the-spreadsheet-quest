@@ -29,7 +29,7 @@ class Viewport(object):
         col_indexes = range(self.left, self.right + 1)
         row_indexes = range(self.top, self.bottom + 1)
 
-        return tuple([tuple([(i, j) for j in col_indexes]) for i in row_indexes])
+        return tuple(tuple((i, j) for j in col_indexes) for i in row_indexes)
 
 
 if __name__ == '__main__':
