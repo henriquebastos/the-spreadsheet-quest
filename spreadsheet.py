@@ -5,12 +5,12 @@ from viewport import Viewport
 
 
 class Spreadsheet:
-    def __init__(self, filename):
+    def __init__(self, filename, viewport):
         book = xlrd.open_workbook(filename, formatting_info=True)
         sheet = book.sheet_by_index(0)
 
         self.sheet = sheet
-        self.vp = Viewport(2, 1, 12, 4)
+        self.vp = viewport
 
     @property
     def headers(self):
