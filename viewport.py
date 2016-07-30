@@ -26,16 +26,10 @@ class Viewport(object):
 
     @property
     def rows(self):
-        rows_ = []
+        col_indexes = range(self.left, self.right + 1)
+        row_indexes = range(self.top, self.bottom + 1)
 
-        for i in range(self.top, self.bottom + 1):
-            row = []
-            for j in range(self.left, self.right + 1):
-                row.append((i, j))
-
-            rows_.append(tuple(row))
-
-        return tuple(rows_)
+        return tuple([tuple([(i, j) for j in col_indexes]) for i in row_indexes])
 
 
 if __name__ == '__main__':
