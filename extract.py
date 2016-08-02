@@ -19,24 +19,13 @@ def extract(filename):
         headers.append(value)
 
     data = []
-    i = 0
-    while True:
+    for i in range(FIRST_ROW + 1, LAST_ROW + 1):
         row = []
-        j = 0
-        while True:
-            value = sheet.cell_value(FIRST_ROW + 1 + i, FIRST_COL + j)
-
-            if not value:
-                break
-
+        for j in range(FIRST_COL, LAST_COL + 1):
+            value = sheet.cell_value(i, j)
             row.append(value)
-            j += 1
-
-        if not row:
-            break
 
         data.append(row)
-        i += 1
 
     return headers, data
 
