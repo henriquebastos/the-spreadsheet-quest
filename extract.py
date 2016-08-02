@@ -1,13 +1,12 @@
 import sys
 
-from spreadsheet import Spreadsheet
-from viewport import Viewport
+from statement import CardStatement
 
 
 if __name__ == '__main__':
     filename = sys.argv[1]
 
-    sheet = Spreadsheet.from_xls(filename, Viewport(2, 1, 12, 4))
+    stm = CardStatement.from_xls(filename)
 
-    for row in sheet:
+    for row in stm:
         print('{3: >6} {2}'.format(*row))
