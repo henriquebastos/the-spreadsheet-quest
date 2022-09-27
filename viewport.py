@@ -8,15 +8,10 @@ class Viewport(object):
         self.right = right
 
     def __repr__(self):
-        return '{}({}, {}, {}, {})'.format(
-            self.__class__.__name__,
-            self.top, self.left, self.bottom, self.right
-        )
+        return f'{self.__class__.__name__}({self.top}, {self.left}, {self.bottom}, {self.right})'
 
     def __str__(self):
-        return '(({}, {}), ({}, {}))'.format(
-            self.top, self.left, self.bottom, self.right
-        )
+        return f'(({self.top}, {self.left}), ({self.bottom}, {self.right}))'
 
     def __eq__(self, other):
         return (self.top == other.top and
@@ -37,10 +32,7 @@ class RowIterator:
         return self.vp.bottom + 1 - self.vp.top
 
     def __getitem__(self, item):
-        if isinstance(item, slice):
-            return self._slice(item)
-        else:
-            return self._index(item)
+        return self._slice(item) if isinstance(item, slice) else self._index(item)
 
     def _index(self, item):
         col_indexes = range(self.vp.left, self.vp.right + 1)

@@ -8,4 +8,4 @@ if __name__ == '__main__':
 
     stm = CardStatement.from_xls(filename)
 
-    print(str(stm))
+    print(stm)
